@@ -2,8 +2,8 @@
 
 module processor (
 	input clk
-	, input logic [63:0] inst
-	, output logic [63:0] result
+	, input logic [31:0] inst
+	, output logic [31:0] result
 ) ; 
 
 
@@ -12,8 +12,8 @@ module processor (
  reg [4:0] reg2   ; 
  reg [4:0] reg3   ; 
  reg [15:0] addr  ;
- reg [4:0] internalreg1 ; 
- reg [4:0] internalreg2 ;  
+ reg [15:0] SinglePortRam [31:0] ;  // 256  - 32 bit registers 
+
 
 assign opcode = inst [31:29] ; 
 assign reg1   = inst [28:24] ; 
@@ -27,8 +27,20 @@ always_ff@(posedge clk) begin
 
 	case (opcode) 
 
-	4'0001 : 
+	4'b0001 : begin    // Load Word
+	         reg1 <= SinglePortRam[addr] ;  
+                end
 
+	4'b0010 : begin   // Store Word
+		 SinglePortRam[addr] <= reg1 ; 	
+       		end
+
+ 	4'b0011 : begin
+		
+		end
+
+
+	endcase
 
 
 end
