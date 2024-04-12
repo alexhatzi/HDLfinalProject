@@ -20,7 +20,7 @@ module ALU(
     // and, or operations on ip_0 and ip_1 based 
     // on the instruction/opcode
     
-//    assign op_0 = 
+    assign op_0 = 
     
     
     // Change_pc is required for the branch operations for 

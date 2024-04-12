@@ -1,5 +1,3 @@
-
-
 module processor (
 	input clk
 	, input logic [31:0] inst
@@ -35,8 +33,8 @@ always_ff@(posedge clk) begin
 		 SinglePortRam[addr] <= reg1 ; 	
        		end
 
- 	4'b0011 : begin
-		
+ 	4'b0011 : begin   // Brance if Equal
+		 if(SinglePortRam[] == 
 		end
 
 

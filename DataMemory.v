@@ -20,6 +20,9 @@ module  DataMemory(
     // to its index. For example ram[0], ram[1], ram[2]
     // contains 0, 1, 2 respectively. 
     initial begin
+	for(int i = 0 ; i < 2 ; i++) begin
+		ram[i] <= i ; 	
+	end
     end
     
     

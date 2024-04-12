@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+timescale 1ns / 1ps
 /*
 Decoder Module
 
@@ -16,12 +16,12 @@ module  Decoder(
     output [4:0] reg_addr_2,
     output [14:0] addr
     );
-    
-    // Use assign statements to redirect parts of the instruction to output
-    assign opcode = inst[31:29];
-    assign addr =
-    assign reg_addr_0 =
-    assign reg_addr_1 =
-    assign reg_addr_2 =
+   
+
+    assign opcode = 	inst[31:29] ;
+    assign addr   = 	inst[15:0]  ;
+    assign reg_addr_0 = inst[28:24] ; 
+    assign reg_addr_1 = inst[23:19] ;
+    assign reg_addr_2 = inst[18:16] ;
     
 endmodule
