@@ -19,17 +19,16 @@ module ALU(
     // Use assign statement to perform add, sub,
     // and, or operations on ip_0 and ip_1 based 
     // on the instruction/opcode
-always@(*) begin    
-   case(opcode) 
-	3'd4 : op_0 = ip_0 + ip_1 ; 
-	3'd5 : op_0 = ip_0 - ip_1 ;
-	3'd6 : op_0 = ip_0 & ip_1 ; 
-	3'd7 : op_0 = ip_0 | ip_1 ; 
-	default: op_0 = ip_0;
-   endcase
-end
 
-    
+
+    assign op_0 = (opcode == 3'd4) ? (ip_0 + ip_1) :
+                  (opcode == 3'd5) ? (ip_0 - ip_1) :
+                  (opcode == 3'd6) ? (ip_0 & ip_1) :
+                  (opcode == 3'd7) ? (ip_0 | ip_1) :
+			                     ip_0  ;
+
+
+
     
     // Change_pc is required for the branch operations for 
     // the two control instructions. If ip_0 and ip_1 are equal 
