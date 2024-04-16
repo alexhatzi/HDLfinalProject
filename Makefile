@@ -16,8 +16,6 @@ decoder:
 ALU:
 	@iverilog -o out_ALU.out ALU.v
 
-
-
 .PHONY: CPU
 CPU:
 	@iverilog -o out_CPU.out CPU.v
@@ -34,5 +32,10 @@ InstructionMemory:
 .PHONY: RegisterFile
 RegisterFile:
 	@iverilog -o out_registerfile.out RegisterFile.v
+
+.PHONY: sim
+sim:
+	@iverilog -o simout.vvp sim.sv
+
 
 .PHONY: waves
