@@ -2,7 +2,7 @@
 
 
 .PHONY:  all
-all: decoder ALU CPU DataMemory InstructionMemory RegisterFile top sim waves  
+all: decoder ALU DataMemory InstructionMemory RegisterFile CPU top sim waves  
 
 
 

@@ -20,8 +20,8 @@ module  DataMemory(
     // to its index. For example ram[0], ram[1], ram[2]
     // contains 0, 1, 2 respectively. 
     initial begin
-	for(int i = 0 ; i <  4294967295 ; i=i+1) begin
-		ram[i] <= 'i ; 	
+	for( i = 0 ; i <  256 ; i=i+1) begin
+		ram[i] <= i ; 	
 	end
     end
     
@@ -31,9 +31,8 @@ module  DataMemory(
     
     always @* begin
         if(write_en) begin
-            // When write_en is high write the write_data 
-            // to the ram based on address write_address_0 
-        end
+	ram[data_address] = write_data ; 	            // When write_en is high write the write_data 
+	end            	   				    // to the ram based on address write_address_0  
     end
     
 endmodule

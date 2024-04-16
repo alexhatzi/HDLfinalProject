@@ -7,14 +7,6 @@ A 2-d register array with one read port
 
 
 
-
-
-
-
-
-// I believe this is done
-
-
 module  InstructionMemory(
     input [15:0] inst_address,
     output [31:0] read_data
@@ -27,7 +19,6 @@ module  InstructionMemory(
         ram[0] <= 32'h2000_0004; // Store instruction that reads registerFile[0] and write to dataMemory[4].
     end
     
-    reg [31:0] ram [255:0];
     
     // Assign statement to read ram based on inst_address
     assign read_data = ram[inst_address] ; 
