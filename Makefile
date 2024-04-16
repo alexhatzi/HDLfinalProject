@@ -35,8 +35,4 @@ InstructionMemory:
 RegisterFile:
 	@iverilog -o out_registerfile.out RegisterFile.v
 
-.PHONY: top
-top:
-	@iverilog -o out_top.out top.v
-
 .PHONY: waves
