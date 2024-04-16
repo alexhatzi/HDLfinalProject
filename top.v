@@ -19,6 +19,10 @@
  reg [15:0] SinglePortRam [31:0] ;  // 256  - 32 bit registers 
 
 
+assign u_CPU.u_InstructionMemory.inst_address = SinglePortRam ; 
+
+
+
  always@(posedge clk) begin
 
 
@@ -45,6 +49,8 @@
 		  end 
 		 end
 	endcase
+
+
 
  end
 
