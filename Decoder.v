@@ -16,8 +16,8 @@ module  Decoder(
     output [4:0] reg_addr_2,
     output [14:0] addr
     );
-wire w1 ;    
-assign w1 = opcode;
+
+
     assign opcode = 	inst[31:29] ;
     assign addr   = 	inst[15:0]  ;
     assign reg_addr_0 = inst[28:24] ; 
