@@ -24,7 +24,7 @@ module  RegisterFile(
     // Initialize the entire ram to zero
     initial begin
         for(i=0; i<256; i=i+1) begin
-            ram[i] = '0 ;
+            ram[i] = 32'b0 ;
         end
     end
 
@@ -37,8 +37,8 @@ module  RegisterFile(
     
     always @* begin
         if(write_en) begin
-			            // When write_en is high write the write_data 
-       			            // to the ram based on address write_address_0 
+	ram[write_address_0] = write_data ;   // When write_en is high write the write_data 
+       			                      // to the ram based on address write_address_0 
         end
     end
     
