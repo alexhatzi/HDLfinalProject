@@ -20,7 +20,7 @@ ALU:
 
 .PHONY: CPU
 CPU:
-	@iverlog -o out_CPU.out CPU.v
+	@iverilog -o out_CPU.out CPU.v
 
 .PHONY: DataMemory
 DataMemory:

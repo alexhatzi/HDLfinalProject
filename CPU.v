@@ -7,9 +7,14 @@ Top Module for CPU.
 
 */
 
+`include "Decoder.v"
+`include "ALU.v"
+`include "InstructionMemory.v"
+`include "DataMemory.v"
+`include "RegisterFile.v"
 
-module CPU(
-    input clk
+
+module CPU( input clk
     );
     
      
@@ -19,7 +24,11 @@ module CPU(
     
     // Instantiate decoder, Instruction Memory,
     // Data Memory, Register File and ALU
-    
+   Decoder u_decoder ();
+   InstructionMemory u_InstructionMemory ();
+   DataMemory u_DataMemory ();
+   RegisterFile u_RegisterFile();
+   ALU u_ALU(); 
     
     
         
