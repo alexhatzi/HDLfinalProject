@@ -37,7 +37,11 @@ module CPU( input clk
    reg [15:0] addr ;  
    reg [31:0] inst ; 
    reg [31:0] ALU_RESULT;
-     
+  
+   assign u_ALU.ip_0 = reg_addr_0 ; 
+   assign u_ALU.ip_1 = reg_addr_1 ;
+   assign u_ALU.opcode = opcode ;  
+
     always@(posedge clk)
     begin
         if(state_q == 0) begin					   // Fetch Stage
@@ -53,20 +57,17 @@ module CPU( input clk
 	    reg_addr_2 <= u_decoder.reg_addr_2 ; 
 	    addr       <= u_decoder.addr       ; 
 	     
-            state_q <= 2; 			       //update state
-        end else if(state_q == 2) begin 	      // Execute Stage        
-            					     // Perform ALU operations
+            state_q <= 2; 			        //update state
+        end else if(state_q == 2) begin 	       // Execute Stage        
+            					      // Perform ALU operations
 
-	     u_ALU.ip_0   <= reg_addr_0      ; 
-	     u_ALU.ip_1   <= reg_addr_1	     ; 
-	     u_ALU.opcode <= opcode    	     ; 
 	     ALU_RESULT   <= u_ALU.op_0      ; 
 	     pc_q 	  <= u_ALU.change_pc ; 
 
-            state_q <= 3; 		     //update state
+            state_q <= 3; 		       //update state
 
-        end else if(state_q == 3) begin    // Memory Stage
-            				  // Access Memory and register file(for load)
+        end else if(state_q == 3) begin      // Memory Stage
+            				    // Access Memory and register file(for load)
             state_q <= 0;
         end    
     end
