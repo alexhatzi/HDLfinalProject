@@ -36,29 +36,37 @@ module CPU( input clk
    reg [4:0] reg_addr_2 ; 
    reg [15:0] addr ;  
    reg [31:0] inst ; 
-
+   reg [31:0] ALU_RESULT;
      
     always@(posedge clk)
     begin
-        if(state_q == 0) begin // Fetch Stage
-         instruction_q =  u_InstructionMemory.read_data ;   		 // Read instruction from instruction memory
-         pc_q <=  pc_q + 1'b1 ; 						 // increment PC
-         state_q <= 2'b1 ; 					   	         // increment state
-        end else if(state_q == 1) begin  // Decode Stage       
-            inst = instruction_q ; 			// Instruction Decode and read data from register/memory
-            opcode <= u_decoder.opcode ;			// store all data necessary for next stages in a register
-	    reg_addr_0 <=u_decoder.reg_addr_0 ; 
-	    reg_addr_1 <=u_decoder.reg_addr_1 ; 
-	    reg_addr_2 <=u_decoder.reg_addr_2 ; 
-	    addr       <=u_decoder.addr	      ; 
+        if(state_q == 0) begin					   // Fetch Stage
+            instruction_q =  u_InstructionMemory.read_data ;	  // Read instruction from instruction memory
+            pc_q 	 <=  pc_q + 1'b1 		   ;     // increment PC
+            state_q 	 <= 2'b1  			   ; 	// increment state
+        end else if(state_q == 1) begin 		       // Decode Stage       
+
+            inst 	= instruction_q        ; 	     // Instruction Decode and read data from register/memory
+            opcode     <= u_decoder.opcode     ;	    // store all data necessary for next stages in a register
+	    reg_addr_0 <= u_decoder.reg_addr_0 ; 
+	    reg_addr_1 <= u_decoder.reg_addr_1 ; 
+	    reg_addr_2 <= u_decoder.reg_addr_2 ; 
+	    addr       <= u_decoder.addr       ; 
 	     
-            state_q <= 2;  //update state
-        end else if(state_q == 2) begin  // Execute Stage        
-            // Perform ALU operations
-	    
-            state_q <= 3; //update state
-        end else if(state_q == 3) begin  // Memory Stage
-            // Access Memory and register file(for load)
+            state_q <= 2; 			       //update state
+        end else if(state_q == 2) begin 	      // Execute Stage        
+            					     // Perform ALU operations
+
+	     u_ALU.ip_0   <= reg_addr_0      ; 
+	     u_ALU.ip_1   <= reg_addr_1	     ; 
+	     u_ALU.opcode <= opcode    	     ; 
+	     ALU_RESULT   <= u_ALU.op_0      ; 
+	     pc_q 	  <= u_ALU.change_pc ; 
+
+            state_q <= 3; 		     //update state
+
+        end else if(state_q == 3) begin    // Memory Stage
+            				  // Access Memory and register file(for load)
             state_q <= 0;
         end    
     end

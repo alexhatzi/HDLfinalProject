@@ -35,7 +35,14 @@ RegisterFile:
 
 .PHONY: sim
 sim:
-	@iverilog -o simout.vvp sim.sv
+	@iverilog -o outsim.vvp sim.sv
+	@vvp outsim.vvp
 
 
 .PHONY: waves
+waves: sim
+	@gtkwave dump.vcd
+
+
+
+

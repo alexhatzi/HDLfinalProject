@@ -9,8 +9,8 @@ comparison operation for beq, blt.
 */
 
 module ALU(
-    input wire [31:0] ip_0,
-    input wire [31:0] ip_1,
+    input wire [4:0] ip_0,
+    input wire [4:0] ip_1,
     input wire [2:0] opcode,
     output wire [31:0] op_0,
     output wire change_pc
@@ -27,16 +27,14 @@ module ALU(
                   (opcode == 3'd7) ? (ip_0 | ip_1) :
 			                     ip_0  ;
 
-
-
     
     // Change_pc is required for the branch operations for 
     // the two control instructions. If ip_0 and ip_1 are equal 
-    //  when the instruction is "beq" or ip_0 < ip_1 when 
+    // when the instruction is "beq" or ip_0 < ip_1 when 
     // instruction is "blt", the change_pc goes high 
     
-    assign change_pc = opcode == 2 ? (ip_0 == ip_1):(
-                        opcode == 3 ? (ip_0 < ip_1) : 0);
+    assign change_pc = opcode == 2 ? (ip_0 == ip_1):
+		      (opcode == 3 ? (ip_0 < ip_1) : 0);
     
     
 endmodule
