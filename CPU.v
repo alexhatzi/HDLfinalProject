@@ -7,9 +7,7 @@ Top Module for CPU.
 
 */
 
-`include "Decoder.v"
-`include "ALU.v"
-`include "InstructionMemory.v"
+`include "Decoder.v" `include "ALU.v" `include "InstructionMemory.v"
 `include "DataMemory.v"
 `include "RegisterFile.v"
 
@@ -61,13 +59,18 @@ module CPU( input clk
         end else if(state_q == 2) begin 	       // Execute Stage        
             					      // Perform ALU operations
 
-	     ALU_RESULT   <= u_ALU.op_0      ; 
+	     u_RegisterFile.write_data   <= u_ALU.op_0      ; 
+	     u_RegisterFile.read_address_0 <= reg_addr_0 ; 
+	     u_RegisterFile.read_address_1 <= reg_addr_1 ; 
+	     u_RegisterFile.write_address_0 <= reg_addr_2 ; 
+	     u_RegisterFile.write_en <= 1'b1 ; 
+	     	u_RegisterFile.read_data_1 ; 
 	     pc_q 	  <= u_ALU.change_pc ; 
 
             state_q <= 3; 		       //update state
 
         end else if(state_q == 3) begin      // Memory Stage
-            				    // Access Memory and register file(for load)
+ 		u_InstructionMemory.inst_address <=            				    // Access Memory and register file(for load)
             state_q <= 0;
         end    
     end
