@@ -1,5 +1,14 @@
 # HDLfinalProject
 
+## How to use
+
+-[] Download Icarus Verilog [here](https://github.com/steveicarus/iverilog)
+-[] Download GTKWave [here](https://gtkwave.sourceforge.net/)
+-   The makefiles should work on any bash shell, built on debian
+
+
+
+
 
 | OPCODE (Decimal)   | OPERATION    | Relevant Info |
 |------|-----------------------|-------------------------------------------------------------------------------------|
