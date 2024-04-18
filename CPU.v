@@ -37,14 +37,14 @@ module CPU( input clk
    reg [15:0] addr ;  
    reg [31:0] inst ; 
    reg [31:0] ALU_RESULT;
-   reg [15:0] pc  ;  
 
     always@(posedge clk)
     begin
-        if(state_q == 0) begin					    // Fetch Stage
+        if(state_q == 0) begin			
+	    u_InstructionMemory.inst_address = pc_q         ;       // Fetch Stage
             instruction_q =  u_InstructionMemory.read_data  ;	   // Read instruction from instruction memory
-	    pc 	         <=  pc + 1'b1 		    ;    //\\ increment PC
-            state_q 	 <= 2'b1  		    ;     //\\ increment state
+	    pc_q         <=  pc_q + 1'b1 		    ;    //\\ increment PC
+            state_q 	 <= 2'b1  	    		    ;     //\\ increment state
         end else if(state_q == 1) begin 		           //\\ Decode Stage       
 
             u_decoder.inst = instruction_q        ; 	     // Instruction Decode and read data from register/memory
@@ -62,10 +62,9 @@ module CPU( input clk
 	    u_ALU.ip_1 	   =  reg_addr_1 	 ;
 	    u_ALU.opcode   =  opcode		 ; 
             ALU_RESULT    <=  u_ALU.op_0	 ;  
-	    pc_q          <= u_ALU.change_pc 	 ; 
 	 end
-	 if(pc_q) begin
-	    pc = addr ;  
+	 if(u_ALU.change_pc) begin
+	    pc_q = addr ;  
    	 end	
             state_q       <= 3 	                 ; 		       //update state
 
