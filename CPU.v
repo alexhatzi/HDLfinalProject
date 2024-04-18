@@ -35,6 +35,8 @@ module CPU( input clk
    reg [15:0] addr ;  
    reg [31:0] inst ; 
    reg [31:0] ALU_RESULT;
+   reg [31:0] RegisterReadResult0 ; 
+   reg [31:0] RegisterReadResult1 ; 
   
    assign u_ALU.ip_0 = reg_addr_0 ; 
    assign u_ALU.ip_1 = reg_addr_1 ;
@@ -59,13 +61,14 @@ module CPU( input clk
         end else if(state_q == 2) begin 	       // Execute Stage        
             					      // Perform ALU operations
 
-	     u_RegisterFile.write_data   <= u_ALU.op_0      ; 
-	     u_RegisterFile.read_address_0 <= reg_addr_0 ; 
-	     u_RegisterFile.read_address_1 <= reg_addr_1 ; 
-	     u_RegisterFile.write_address_0 <= reg_addr_2 ; 
-	     u_RegisterFile.write_en <= 1'b1 ; 
-	     	u_RegisterFile.read_data_1 ; 
-	     pc_q 	  <= u_ALU.change_pc ; 
+	     u_RegisterFile.write_data   	<= u_ALU.op_0      	       ; 
+	     u_RegisterFile.read_address_0 	<= reg_addr_0 	   	       ; 
+	     u_RegisterFile.read_address_1 	<= reg_addr_1 		       ; 
+	     u_RegisterFile.write_address_0 	<= reg_addr_2 		       ; 
+	     u_RegisterFile.write_en 		<= 1'b1 		       ; 
+	     RegisterReadResult0 		<= u_RegisterFile.read_data_0  ; 
+	     RegisterReadResult1 		<= u_RegisterFile.read_data_1  ; 
+	     pc_q 	  			<= u_ALU.change_pc 	       ; 
 
             state_q <= 3; 		       //update state
 
