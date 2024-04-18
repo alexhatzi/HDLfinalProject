@@ -57,19 +57,19 @@ module CPU( input clk
 
         end else if(state_q == 2) begin 	       // Execute Stage        
             					      // Perform ALU operations
-	 if (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6||3'd7)) begin
+	    if (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6||3'd7)) begin
 	    u_ALU.ip_0	   =  reg_addr_0         ; 
 	    u_ALU.ip_1 	   =  reg_addr_1 	 ;
 	    u_ALU.opcode   =  opcode		 ; 
             ALU_RESULT    <=  u_ALU.op_0	 ;  
-	 end
-	 if(u_ALU.change_pc) begin
-	    pc_q = addr ;  
-   	 end	
+	    end
+	    if(u_ALU.change_pc) begin
+	       pc_q = addr ;  
+   	    end	
             state_q       <= 3 	                 ; 		       //update state
 
         end else if(state_q == 3) begin      // Memory Stage
- 		u_InstructionMemory.inst_address <=    	    // Access Memory and register file(for load)
+ 		u_RegisterFile.write_address_0 <= addr ;    	    // Access Memory and register file(for load)
             state_q <= 0;
         end    
     end
