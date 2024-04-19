@@ -25,11 +25,9 @@ module CPU( input clk
 
 
 
-
-
     // Instantiate decoder, Instruction Memory,
     // Data Memory, Register File and ALU
-   Decoder u_decoder (.inst(inst))	    ;
+   Decoder u_decoder ()	    ;
    InstructionMemory u_InstructionMemory () ;
    DataMemory u_DataMemory ()		    ;
    RegisterFile u_RegisterFile()	    ;
@@ -59,7 +57,7 @@ module CPU( input clk
     begin
         if(state_q == 0) begin			
 	    						            // Fetch Stage
-            instruction_q  =  u_InstructionMemory.read_data ;	   // Read instruction from instruction memory
+            instruction_q <=  u_InstructionMemory.read_data ;	   // Read instruction from instruction memory
 	    pc_q          <=  pc_q + 1'b1 		    ;     //\\ increment PC
             state_q 	  <= 2'b1  	    		    ;      //\\ increment state
         end else if(state_q == 1) begin 		            //\\ Decode Stage       
