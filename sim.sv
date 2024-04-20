@@ -2,7 +2,9 @@
 `include "CPU.v"
 module tb_top();
  
- logic  clk = 0  ; 
+  logic  [31:0] write_data [255:0]; 
+  integer i ; 
+  logic  clk = 0  ; 
 
  CPU u_CPU  (.clk (clk));
 
@@ -11,15 +13,13 @@ module tb_top();
 
  initial begin
    $dumpfile("dump.vcd"); 
-   $dumpvars(0, tb_top);
-   repeat(1000) begin
-   u_CPU.instruction_q = $urandom; 
-   #1 ; 
+   $dumpvars;
+  for (i = 0 ; i < 256 ; i=i+1) begin
+   u_CPU.u_InstructionMemory.ram[i] <= $urandom ; 
+   #1000; 
    end
-
-
-  $finish;
- end
+   $finish;
+  end
 
 
 
