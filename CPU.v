@@ -40,7 +40,7 @@ module CPU( input clk
    reg [15:0] addr 	;  
    reg [31:0] inst  	; 
    reg [31:0] ALU_RESULT;
-
+   reg        write_en  ; 
 
    assign u_InstructionMemory.inst_address = pc_q  	   ; 
    assign u_decoder.inst 		   = instruction_q ; 
@@ -49,6 +49,7 @@ module CPU( input clk
    assign u_ALU.opcode 			   = opcode        ; 
    assign u_RegisterFile.write_address_0   = addr	   ; 
    assign u_RegisterFile.write_data        = ALU_RESULT    ; 
+   assign u_RegisterFile.write_en	   = write_en      ; 
 
 
 
@@ -56,13 +57,12 @@ module CPU( input clk
     always@(posedge clk)
     begin
         if(state_q == 0) begin			
-	    						            // Fetch Stage
+	    write_en      =  1'b0 			    ;       // Fetch Stage
             instruction_q <=  u_InstructionMemory.read_data ;	   // Read instruction from instruction memory
 	    pc_q          <=  pc_q + 1'b1 		    ;     //\\ increment PC
             state_q 	  <= 2'b1  	    		    ;      //\\ increment state
         end else if(state_q == 1) begin 		            //\\ Decode Stage       
 
-           // u_decoder.inst = instruction_q        ; 	      // Instruction Decode and read data from register/memory
             opcode        <= u_decoder.opcode     ;	     // store all data necessary for next stages in a register
 	    reg_addr_0    <= u_decoder.reg_addr_0 ;
 	    reg_addr_1    <= u_decoder.reg_addr_1 ;
@@ -73,9 +73,6 @@ module CPU( input clk
         end else if(state_q == 2) begin 	      // Execute Stage        
             					     // Perform ALU operations
 	    if (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6||3'd7)) begin
-	   // u_ALU.ip_0	   =  reg_addr_0         ;
-	   // u_ALU.ip_1 	   =  reg_addr_1 	 ;
-	   // u_ALU.opcode   	   =  opcode		 ; 
             ALU_RESULT    	   =  u_ALU.op_0	 ;  
 	    end
 	    if(u_ALU.change_pc) begin
@@ -84,9 +81,11 @@ module CPU( input clk
             state_q       <= 3 	                 		;      //update state
 
         end else if(state_q == 3) begin      			       // Memory Stage
- 		// u_RegisterFile.write_address_0 <= addr       ;      // Access Memory and register file(for load)
-		// u_RegisterFile.write_data      <= ALU_RESULT ; 
             	    state_q 		          <= 0	        ;
+	    if (opcode == (3'd0 || 3'd1)) begin
+	        write_en = 1'b1 ; 
+		end
+
         end    
     end
     

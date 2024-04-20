@@ -17,6 +17,16 @@ module  InstructionMemory(
     // Initialize Instructions in the memory for testing
     initial begin
         ram[0] <= 32'h2000_0004; // Store instruction that reads registerFile[0] and write to dataMemory[4].
+	ram[1] <= $urandom ; 
+	ram[2] <= $urandom ; 
+	ram[3] <= $urandom ; 
+	ram[4] <= $urandom ; 
+	ram[5] <= $urandom ; 
+	ram[6] <= $urandom ; 
+	ram[7] <= $urandom ; 
+	ram[8] <= $urandom ; 
+	ram[9] <= $urandom ; 
+	ram[10]<= $urandom ; 
     end
     
     

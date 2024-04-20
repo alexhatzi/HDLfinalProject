@@ -22,7 +22,7 @@ module  Decoder(
     assign reg_addr_0 = inst[28:24] ;
 	    
 
-    assign reg_addr_1  =     (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6)) ? (inst[23:19]) : 
+    assign reg_addr_1  =     (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6)) ? (inst[23:19])   : 
 			 	                    				 4'bXXXX  ; // Default unknown state
 
     assign reg_addr_2  =     (opcode == (3'd4||3'd5||3'd6||3'd7)) ? (inst[18:14]) 	  : 
