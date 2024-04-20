@@ -31,7 +31,7 @@ module  Decoder(
     assign addr        =     (opcode == (3'd0||3'd1)) 		  ? (inst[15:0])  	  : 
 			     (opcode == (3'd2||3'd3)) 		  ? ({1'b0,inst[14:0]})   :
 			     (opcode == (3'd4||3'd5||3'd6||3'd7)) ? ({2'b00,inst[13:0]})  :
-				   					        15'd0     ; // Default state
+				   					        16'd0     ; // Default state
 
 
 
