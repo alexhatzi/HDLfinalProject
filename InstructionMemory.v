@@ -16,7 +16,7 @@ module  InstructionMemory(
 
     // Initialize Instructions in the memory for testing
     initial begin
-      for (i = 1; i < 256; i = i + 1) begin
+      for (i = 1; i < 200; i = i + 1) begin
         ram[i] <= $urandom;    
       end
     end    

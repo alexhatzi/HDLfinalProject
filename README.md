@@ -1,5 +1,15 @@
 # HDLfinalProject
 
+This very simple CPU is meant to be able to perform ALU and memory operations. At time of writing it does not fully work. The design can be built, simulation can be ran and waveforms show real inputs (No *unexpected* X values). The register to memory interaction does not seem to actually work. The values stored in registers from the register file do not affect the data memory apart from a few testcases.
+
+Additionally, while the ALU operations do work as intended based on their inputs and outputs, the inputs to the ALU are not behaving as expeted. These issues may all be corrected at a later time. 
+
+
+![waveforms](https://imgur.com/aUDEWJY)
+
+
+
+
 ## How to use
 
 - [ ] Download Icarus Verilog [here](https://github.com/steveicarus/iverilog)
