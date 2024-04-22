@@ -5,7 +5,7 @@ This very simple CPU is meant to be able to perform ALU and memory operations. A
 Additionally, while the ALU operations do work as intended based on their inputs and outputs, the inputs to the ALU are not behaving as expeted. These issues may all be corrected at a later time. 
 
 
-![waveforms](https://imgur.com/aUDEWJY)
+![waveforms]([waveforms](https://imgur.com/aUDEWJY.png))
 
 
 
