@@ -4,8 +4,8 @@ This very simple CPU is meant to be able to perform ALU and memory operations. A
 
 Additionally, while the ALU operations do work as intended based on their inputs and outputs, the inputs to the ALU are not behaving as expeted. These issues may all be corrected at a later time. 
 
+![Screenshot from 2024-04-22 17-40-23](https://github.com/doodoofarrd/HDLfinalProject/assets/143632432/1b0ef588-ff21-45cc-87d7-bc4bd1ae7c0a)
 
-![waveforms]([waveforms](https://imgur.com/aUDEWJY.png))
 
 
 
