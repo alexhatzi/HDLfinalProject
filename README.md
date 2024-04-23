@@ -2,10 +2,7 @@
 
 This very simple CPU is meant to be able to perform ALU and memory operations. The design can be built, simulation can be ran and waveforms show real inputs (No *unexpected* X values). While the waveforms do show X values, these are expected and wanted. For example for Control Type Instructions, reg_addr_2 should all be x's, which can be seen in the video before.
 
-
-
-[2024-04-22 21-19-20.webm](https://github.com/doodoofarrd/HDLfinalProject/assets/143632432/d4219e77-a20c-43aa-8212-f4f34d5c32e9)
-
+[2024-04-22 21-19-20(1).webm](https://github.com/doodoofarrd/HDLfinalProject/assets/143632432/1b02f53d-0ac9-4839-ba2a-a0b251de3913)
 
 
 
