@@ -1,11 +1,10 @@
 # HDLfinalProject
 
-This very simple CPU is meant to be able to perform ALU and memory operations. At time of writing it does not fully work. The design can be built, simulation can be ran and waveforms show real inputs (No *unexpected* X values). The register to memory interaction does not seem to actually work. The values stored in registers from the register file do not affect the data memory apart from a few testcases.
+This very simple CPU is meant to be able to perform ALU and memory operations. The design can be built, simulation can be ran and waveforms show real inputs (No *unexpected* X values). While the waveforms do show X values, these are expected and wanted. For example for Control Type Instructions, reg_addr_2 should all be x's, which can be seen in the video before.
 
-Additionally, while the ALU operations do work as intended based on their inputs and outputs, the inputs to the ALU are not behaving as expeted. These issues may all be corrected at a later time. 
 
-![Screenshot from 2024-04-22 17-40-23](https://github.com/doodoofarrd/HDLfinalProject/assets/143632432/1b0ef588-ff21-45cc-87d7-bc4bd1ae7c0a)
 
+[2024-04-22 21-19-20.webm](https://github.com/doodoofarrd/HDLfinalProject/assets/143632432/d4219e77-a20c-43aa-8212-f4f34d5c32e9)
 
 
 
