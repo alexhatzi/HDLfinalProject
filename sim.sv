@@ -14,8 +14,7 @@ module tb_top();
  initial begin
    $dumpfile("dump.vcd"); 
    $dumpvars;
-  for (i = 0 ; i < 256 ; i=i+1) begin
-   u_CPU.u_InstructionMemory.ram[i] <= $urandom ; 
+  for (i = 0 ; i < 1000 ; i=i+1) begin
    #1000; 
    end
    $finish;

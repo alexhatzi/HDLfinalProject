@@ -8,7 +8,7 @@ A 2-d register array with one read port
 
 
 module  InstructionMemory(
-    input [15:0] inst_address,
+    input [7:0] inst_address,
     output [31:0] read_data
     );
     integer i ;     
@@ -16,7 +16,7 @@ module  InstructionMemory(
 
     // Initialize Instructions in the memory for testing
     initial begin
-      for (i = 1; i < 200; i = i + 1) begin
+      for (i = 1; i < 256; i = i + 1) begin
         ram[i] <= $urandom;    
       end
     end    

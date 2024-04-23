@@ -18,7 +18,7 @@ module CPU( input clk
     );
     
      
-    reg [15:0]  pc_q = 0	;      // Program Counter
+    reg [7:0]  pc_q = 0	;      // Program Counter
     reg [31:0]  instruction_q	;      // Holds instruction binary     
     reg [1:0]   state_q = 0	;      // State of CPU
     
@@ -54,39 +54,37 @@ module CPU( input clk
 
 
 
-    always@(posedge clk)
-    begin
-        if(state_q == 0) begin			
-	    write_en      =  1'b0 			    ;       // Fetch Stage
-            instruction_q <=  u_InstructionMemory.read_data ;	   // Read instruction from instruction memory
-	    pc_q          <=  pc_q + 1'b1 		    ;     //\\ increment PC
-            state_q 	  <= 2'b1  	    		    ;      //\\ increment state
-        end else if(state_q == 1) begin 		            //\\ Decode Stage       
-
-            opcode        <= u_decoder.opcode     ;	     // store all data necessary for next stages in a register
-	    reg_addr_0    <= u_decoder.reg_addr_0 ;
-	    reg_addr_1    <= u_decoder.reg_addr_1 ;
-	    reg_addr_2    <= u_decoder.reg_addr_2 ;
-	    addr          <= u_decoder.addr       ;
-            state_q 	  <= 2			  ;     //update state
-
-        end else if(state_q == 2) begin 	      // Execute Stage        
-            					     // Perform ALU operations
-	    if (opcode == (3'd2||3'd3||3'd4||3'd5||3'd6||3'd7)) begin
-            ALU_RESULT    	   =  u_ALU.op_0	 ;  
-	    end
-	    if(u_ALU.change_pc) begin
-	       pc_q 	   = addr 		 		;  
-   	    end
-            state_q       <= 3 	                 		;      //update state
-
-        end else if(state_q == 3) begin      			       // Memory Stage
-            	    state_q 		          <= 0	        ;
-	    if (opcode == (3'd0 || 3'd1)) begin
-	        write_en = 1'b1 ; 
-		end
-
-        end    
+   always @(posedge clk) begin
+    if (state_q == 0) begin
+        write_en <= 1'b0; 
+        instruction_q <= u_InstructionMemory.read_data;
+        pc_q <= pc_q + 1'b1; 
+        state_q <= 2'b01; 
     end
-    
+    else if (state_q == 2'b01) begin 
+        opcode <= u_decoder.opcode; // Store all data necessary for next stages in a register
+        reg_addr_0 <= u_decoder.reg_addr_0;
+        reg_addr_1 <= u_decoder.reg_addr_1;
+        reg_addr_2 <= u_decoder.reg_addr_2;
+        addr <= u_decoder.addr;
+        state_q <= 2'b10; // Update state
+    end
+    else if (state_q == 2'b10) begin // Execute Stage
+        // Perform ALU operations
+        if (opcode == 3'd2 || opcode == 3'd3 || opcode == 3'd4 || opcode == 3'd5 || opcode == 3'd6 || opcode == 3'd7) begin
+            ALU_RESULT <= u_ALU.op_0;
+        end
+        if (u_ALU.change_pc) begin
+            pc_q <= addr;
+        end
+        state_q <= 2'b11; // Update state
+    end
+    else if (state_q == 2'b11) begin // Memory Stage
+        if (opcode == 3'd0 || opcode == 3'd1) begin
+            write_en <= 1'b1;
+        end
+        state_q <= 2'b00; // Update state
+    end
+end
+
 endmodule
